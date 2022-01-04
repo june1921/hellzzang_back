@@ -1,5 +1,8 @@
 package com.example.demo.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.example.demo.model.Userinfo;
 import com.example.demo.repository.UserinfoRepository;
 
@@ -25,7 +28,31 @@ public class UserController {
   @PostMapping("/signup")
   @ResponseBody
   public Userinfo signupPost(@ModelAttribute Userinfo userinfo){
+    System.out.println(userinfo);
     userinfoRepository.save(userinfo);
     return userinfo;
   }
+
+
+  @GetMapping("/login")
+	public String signin() {
+		return "login";
+	}
+	
+	@PostMapping("/login")
+  @ResponseBody
+	public Map<String, Object> signinPost(@ModelAttribute Userinfo userinfo) {
+		Userinfo dbUser = 
+			userinfoRepository.findByUseridAndUserpw(
+				userinfo.getUserid(), userinfo.getUserpw());
+		Map<String, Object> map = new HashMap<>();
+    if(dbUser != null){
+      map.put("code", 200);
+      map.put("msg","success");
+    }else{
+      map.put("code",201);
+      map.put("msg","fail");
+    }
+		return map;
+	}
 }

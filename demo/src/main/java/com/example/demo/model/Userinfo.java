@@ -15,5 +15,4 @@ public class Userinfo {
   String nickname;
   String userid;
   String userpw;
-  int birth;
 }
