@@ -1,11 +1,9 @@
 package com.example.demo.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import com.example.demo.model.Userinfo;
 import com.example.demo.repository.UserinfoRepository;
@@ -18,49 +16,54 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
+@RestController
 @CrossOrigin
 @Controller
 @RequestMapping("/user")
 public class UserController {
   @Autowired
   UserinfoRepository userinfoRepository;
+
   @GetMapping("/signup")
-  public String signup(){
+  public String signup() {
     return "signup";
   }
+
   @PostMapping("/signup")
   @ResponseBody
-  public Userinfo signupPost(@ModelAttribute Userinfo userinfo){
+  public Userinfo signupPost(@ModelAttribute Userinfo userinfo) {
     System.out.println(userinfo);
     userinfoRepository.save(userinfo);
     return userinfo;
   }
 
-
   @GetMapping("/login")
-	public String signin() {
-		return "login";
-	}
-	
-	@PostMapping("/login")
+  public String signin() {
+    return "login";
+  }
+
+  @PostMapping("/login")
   @ResponseBody
-	public Map<String, Object> signinPost(@ModelAttribute Userinfo userinfo, HttpServletResponse response) {
-		Userinfo dbUser = 
-			userinfoRepository.findByUseridAndUserpw(
-				userinfo.getUserid(), userinfo.getUserpw());
-		Map<String, Object> map = new HashMap<>();
-    if(dbUser != null){
+  public Map<String, Object> signinPost(@ModelAttribute Userinfo userinfo) {
+    Userinfo dbUser = userinfoRepository.findByUseridAndUserpw(
+        userinfo.getUserid(), userinfo.getUserpw());
+    Map<String, Object> map = new HashMap<>();
+    if (dbUser != null) {
       map.put("code", 200);
-      map.put("msg","success");
-    }else{
-      map.put("code",201);
-      map.put("msg","fail");
+      map.put("msg", "success");
+    } else {
+      map.put("code", 201);
+      map.put("msg", "fail");
     }
+    return map;
+  }
 
-    Cookie cookie = new Cookie("memberId", String.valueOf(userinfo.getUserid())); response.addCookie(cookie);
-
-
-		return map;
-	}
+  @GetMapping("/output")
+  @ResponseBody
+  public List<Userinfo> output(String userid) {
+    List<Userinfo> list = userinfoRepository.findByUseridContaining(userid);
+    return list;
+  }
 }
