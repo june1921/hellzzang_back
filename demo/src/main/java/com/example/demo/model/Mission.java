@@ -15,5 +15,5 @@ public class Mission {
   long m_id;
   String userid;
   String mission_name;
-  Date lost_day;
+  Date last_day;
 }
