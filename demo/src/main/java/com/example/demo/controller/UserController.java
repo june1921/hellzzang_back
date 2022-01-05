@@ -3,6 +3,10 @@ package com.example.demo.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import com.example.demo.model.Userinfo;
 import com.example.demo.repository.UserinfoRepository;
 
@@ -41,7 +45,7 @@ public class UserController {
 	
 	@PostMapping("/login")
   @ResponseBody
-	public Map<String, Object> signinPost(@ModelAttribute Userinfo userinfo) {
+	public Map<String, Object> signinPost(@ModelAttribute Userinfo userinfo, HttpServletResponse response) {
 		Userinfo dbUser = 
 			userinfoRepository.findByUseridAndUserpw(
 				userinfo.getUserid(), userinfo.getUserpw());
@@ -53,6 +57,10 @@ public class UserController {
       map.put("code",201);
       map.put("msg","fail");
     }
+
+    Cookie cookie = new Cookie("memberId", String.valueOf(userinfo.getUserid())); response.addCookie(cookie);
+
+
 		return map;
 	}
 }
