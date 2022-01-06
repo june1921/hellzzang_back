@@ -10,7 +10,7 @@ import lombok.Data;
 @Data
 public class Userinfo {
   @Id @GeneratedValue
-  long u_id;
+  long uId;
   String name;
   String nickname;
   String userid;

@@ -12,18 +12,9 @@ import lombok.Data;
 @Data
 public class Dailycard {
   @Id @GeneratedValue
-  long d_id;
-  // long m_id;
-  String daily_name;
-  long like_count;
-  String daily_content;
-
-  @ManyToOne
-  @JoinColumn(name="mission_id")
-  Mission mission;
-
-  @Override
-  public String toString(){
-    return d_id + daily_name + like_count ;
-  }
+  Long dId;
+  String dailyName;
+  long likeCount;
+  String dailyContent;
+  Long userNum;
 }

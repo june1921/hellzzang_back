@@ -2,8 +2,10 @@ package com.example.demo;
 
 import java.util.List;
 
+import com.example.demo.model.Dailycard;
 import com.example.demo.model.Mission;
 import com.example.demo.model.Usertest;
+import com.example.demo.repository.DailycardRepository;
 import com.example.demo.repository.MissionRepository;
 import com.example.demo.repository.UsertestRepository;
 
@@ -26,11 +28,13 @@ class DemoApplicationTests {
 
   @Autowired
   MissionRepository missionRepository;
+  
+  @Autowired
+  DailycardRepository dailycardRepository;
   @Test
-  void testdday(){
-    List<Mission> row = missionRepository.findByUseridContaining("ska1234");
-    System.out.println(row + "QQQQQQQQQQQQQQQQQQQQQQQQ");
-    System.out.println(row.size());
+  void testdday2(){
+    List<Dailycard> list = dailycardRepository.findAll();
+    System.out.println(list);
   }
 
 }
