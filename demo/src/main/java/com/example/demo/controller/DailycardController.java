@@ -1,17 +1,22 @@
 package com.example.demo.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.example.demo.model.Dailycard;
 import com.example.demo.repository.DailycardRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+@CrossOrigin
 @Controller
 public class DailycardController {
   @Autowired
@@ -29,10 +34,19 @@ public class DailycardController {
     return dailycard;
   }
   
-  @GetMapping("/dailcard/list")
+  @GetMapping("/dailycard/list")
   @ResponseBody
 	public List<Dailycard> cardList() {
 		List<Dailycard> list = dailycardRepository.findAll();
 		return list;
 	}
+
+  @GetMapping("/dailycard/{id}")
+  @ResponseBody
+	public Optional<Dailycard> boardView(@PathVariable("id") long id) {
+		Optional<Dailycard> list = dailycardRepository.findById(id);
+		return list;
+	}
+
+
 }
