@@ -6,12 +6,16 @@ import com.example.demo.model.Dailycard;
 import com.example.demo.repository.DailycardRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Order;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+@CrossOrigin
 @Controller
 public class DailycardController {
   @Autowired
@@ -29,10 +33,19 @@ public class DailycardController {
     return dailycard;
   }
   
-  @GetMapping("/dailcard/list")
+  @GetMapping("/dailycard/list")
   @ResponseBody
 	public List<Dailycard> cardList() {
-		List<Dailycard> list = dailycardRepository.findAll();
-		return list;
+    // Sort sort = Sort.by(Order.desc("d_id"));
+		// List<Dailycard> list = dailycardRepository.findAll(sort);
+		List<Dailycard> list=dailycardRepository.findAll();
+    return list;
 	}
+
+  @GetMapping("/mydaily/list")
+  @ResponseBody
+  public List<Dailycard> mylist(){
+    List<Dailycard> list = dailycardRepository.findAll();
+    return list;
+  }
 }
