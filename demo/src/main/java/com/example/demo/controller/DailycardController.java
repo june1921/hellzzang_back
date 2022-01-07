@@ -39,10 +39,15 @@ public class DailycardController {
 
   @GetMapping("/dailycard/list")
   @ResponseBody
-  public List<Dailycard> cardList() {
-    // Sort sort = Sort.by(Order.desc("d_id"));
-    // List<Dailycard> list = dailycardRepository.findAll(sort);
-    List<Dailycard> list = dailycardRepository.findAll();
+	public List<Dailycard> cardList() {
+		List<Dailycard> list=dailycardRepository.findAll();
+    return list;
+	}
+
+  @GetMapping("/mydaily/list")
+  @ResponseBody
+  public List<Dailycard> mylist(Long u_id){
+    List<Dailycard> list = dailycardRepository.findByUserNum(u_id);
     return list;
   }
 

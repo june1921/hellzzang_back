@@ -18,13 +18,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class MissionController {
   @Autowired
   MissionRepository missionRepository;
+  
+
 
   @GetMapping("/mission")
   @ResponseBody
   public List<Mission> dday(
     String userid){
       List<Mission> row = missionRepository.findByUseridContaining(userid);
-      System.out.println(row);
     return row;
   }
 }
