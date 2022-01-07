@@ -13,7 +13,6 @@ import lombok.Data;
 public class Dailycard {
   @Id @GeneratedValue
   long d_id;
-  // long m_id;
   String daily_name;
   long like_count;
   String daily_content;
@@ -22,8 +21,4 @@ public class Dailycard {
   @JoinColumn(name="mission_id")
   Mission mission;
 
-  @Override
-  public String toString(){
-    return d_id + daily_name + like_count ;
-  }
 }

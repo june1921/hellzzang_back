@@ -3,6 +3,8 @@ package com.example.demo.controller;
 import java.util.List;
 import java.util.Optional;
 
+import javax.tools.Diagnostic;
+
 import com.example.demo.model.Dailycard;
 import com.example.demo.repository.DailycardRepository;
 
@@ -34,28 +36,30 @@ public class DailycardController {
     dailycardRepository.save(dailycard);
     return dailycard;
   }
-  
+
   @GetMapping("/dailycard/list")
   @ResponseBody
-	public List<Dailycard> cardList() {
+  public List<Dailycard> cardList() {
     // Sort sort = Sort.by(Order.desc("d_id"));
-		// List<Dailycard> list = dailycardRepository.findAll(sort);
-		List<Dailycard> list=dailycardRepository.findAll();
-    return list;
-	}
-
-  @GetMapping("/mydaily/list")
-  @ResponseBody
-  public List<Dailycard> mylist(){
+    // List<Dailycard> list = dailycardRepository.findAll(sort);
     List<Dailycard> list = dailycardRepository.findAll();
     return list;
   }
+
+  @GetMapping("/mydaily/list")
+  @ResponseBody
+  public List<Dailycard> mylist() {
+    List<Dailycard> list = dailycardRepository.findAll();
+    return list;
+  }
+
   @GetMapping("/dailycard/{id}")
   @ResponseBody
-	public Optional<Dailycard> boardView(@PathVariable("id") long id) {
-		Optional<Dailycard> list = dailycardRepository.findById(id);
-		return list;
-	}
+  public Optional<Dailycard> boardView(@PathVariable("id") long id) {
+    Optional<Dailycard> list = dailycardRepository.findById(id);
+    return list;
+  }
 
+ 
 
 }

@@ -10,17 +10,19 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import lombok.Data;
+import lombok.ToString;
 
 @Entity
 @Data
 public class Mission {
   @Id @GeneratedValue
   long m_id;
-  String userid;
+  //String userid;
   String mission_name;
   Date last_day;
 
-  @OneToMany(mappedBy="mission", fetch = FetchType.EAGER)//player엔티티에서 manyToOne로 성언한 변수 이름을 넣음.
-  List<Dailycard> dailycards;
+  //@ToString.Exclude
+  //@OneToMany(mappedBy="mission", fetch = FetchType.EAGER)//player엔티티에서 manyToOne로 성언한 변수 이름을 넣음.
+  //List<Dailycard> dailycards;
   
 }
