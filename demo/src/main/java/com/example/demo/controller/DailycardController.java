@@ -3,8 +3,6 @@ package com.example.demo.controller;
 import java.util.List;
 import java.util.Optional;
 
-import javax.tools.Diagnostic;
-
 import com.example.demo.model.Dailycard;
 import com.example.demo.repository.DailycardRepository;
 
@@ -36,13 +34,13 @@ public class DailycardController {
     dailycardRepository.save(dailycard);
     return dailycard;
   }
-
+  
   @GetMapping("/dailycard/list")
   @ResponseBody
-	public List<Dailycard> cardList() {
-		List<Dailycard> list=dailycardRepository.findAll();
+   public List<Dailycard> cardList() {
+      List<Dailycard> list=dailycardRepository.findAll();
     return list;
-	}
+   }
 
   @GetMapping("/mydaily/list")
   @ResponseBody
@@ -51,20 +49,25 @@ public class DailycardController {
     return list;
   }
 
-  @GetMapping("/mydaily/list")
-  @ResponseBody
-  public List<Dailycard> mylist() {
-    List<Dailycard> list = dailycardRepository.findAll();
-    return list;
-  }
-
   @GetMapping("/dailycard/{id}")
   @ResponseBody
-  public Optional<Dailycard> boardView(@PathVariable("id") long id) {
-    Optional<Dailycard> list = dailycardRepository.findById(id);
+  public Optional<Dailycard> boardView(@PathVariable("id") long dId) {
+    Optional<Dailycard> list = dailycardRepository.findById(dId);
     return list;
   }
 
+  @PostMapping("/dailycard/update/{id}")
+  public String boardUpdate(
+      @ModelAttribute Dailycard dailycard, @PathVariable("id") long id) {
+    dailycardRepository.save(dailycard);
+    return "redirect:/dailycard/" + id;
+  }
+
+  @GetMapping("/dailycard/delete/{id}")
+  public String boardDelete(@PathVariable("id") long dId) {
+    dailycardRepository.deleteById(dId);
+    return "redirect:/board/list";
+  }
  
 
 }
