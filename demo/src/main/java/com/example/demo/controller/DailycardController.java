@@ -68,7 +68,4 @@ public class DailycardController {
     dailycardRepository.deleteById(dId);
     return "redirect:/board/list";
   }
-  //커밋
- 
-
 }
