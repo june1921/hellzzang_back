@@ -7,8 +7,6 @@ import com.example.demo.model.Dailycard;
 import com.example.demo.repository.DailycardRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Order;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -44,8 +42,8 @@ public class DailycardController {
 
   @GetMapping("/mydaily/list")
   @ResponseBody
-  public List<Dailycard> mylist(Long u_id){
-    List<Dailycard> list = dailycardRepository.findByUserNum(u_id);
+  public List<Dailycard> mylist(Long userNum){
+    List<Dailycard> list = dailycardRepository.findByUserNum(userNum);
     return list;
   }
 
@@ -58,9 +56,9 @@ public class DailycardController {
 
   @PostMapping("/dailycard/update/{id}")
   public String boardUpdate(
-      @ModelAttribute Dailycard dailycard, @PathVariable("id") long id) {
+      @ModelAttribute Dailycard dailycard, @PathVariable("id") long dId) {
     dailycardRepository.save(dailycard);
-    return "redirect:/dailycard/" + id;
+    return "redirect:/dailycard/" + dId;
   }
 
   @GetMapping("/dailycard/delete/{id}")

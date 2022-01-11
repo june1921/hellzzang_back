@@ -5,9 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
-import javax.websocket.Session;
 
-import com.example.demo.model.Dailycard;
 import com.example.demo.model.Userinfo;
 import com.example.demo.repository.DailycardRepository;
 import com.example.demo.repository.UserinfoRepository;
@@ -17,10 +15,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -60,8 +56,8 @@ public class UserController {
   @PostMapping("/login")
   @ResponseBody
   public Map<String, Object> signinPost(@ModelAttribute Userinfo userinfo) {
-    Userinfo dbUser = userinfoRepository.findByUseridAndUserpw(
-        userinfo.getUserid(), userinfo.getUserpw());
+    Userinfo dbUser = userinfoRepository.findByUserIdAndUserPw(
+        userinfo.getUserId(), userinfo.getUserPw());
     Map<String, Object> map = new HashMap<>();
     if (dbUser != null) {
       map.put("code", 200);
@@ -75,8 +71,8 @@ public class UserController {
 
   @GetMapping("/output")
   @ResponseBody
-  public List<Userinfo> output(String userid) {
-    List<Userinfo> list = userinfoRepository.findByUseridContaining(userid);
+  public List<Userinfo> output(String userId) {
+    List<Userinfo> list = userinfoRepository.findByUserIdContaining(userId);
     return list;
   }
 }

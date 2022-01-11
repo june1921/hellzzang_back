@@ -9,8 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @CrossOrigin
@@ -19,13 +17,11 @@ public class MissionController {
   @Autowired
   MissionRepository missionRepository;
   
-
-
   @GetMapping("/mission")
   @ResponseBody
   public List<Mission> dday(
-    String userid){
-      List<Mission> row = missionRepository.findByUseridContaining(userid);
+    String userId){
+      List<Mission> row = missionRepository.findByUserIdContaining(userId);
     return row;
   }
 }
