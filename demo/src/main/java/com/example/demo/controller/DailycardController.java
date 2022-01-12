@@ -8,6 +8,7 @@ import com.example.demo.repository.DailycardRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -32,17 +33,17 @@ public class DailycardController {
     dailycardRepository.save(dailycard);
     return dailycard;
   }
-  
+
   @GetMapping("/dailycard/list")
   @ResponseBody
-   public List<Dailycard> cardList() {
-      List<Dailycard> list=dailycardRepository.findAll();
+  public List<Dailycard> cardList() {
+    List<Dailycard> list = dailycardRepository.findAll();
     return list;
-   }
+  }
 
   @GetMapping("/mydaily/list")
   @ResponseBody
-  public List<Dailycard> mylist(Long userNum){
+  public List<Dailycard> mylist(Long userNum) {
     List<Dailycard> list = dailycardRepository.findByUserNum(userNum);
     return list;
   }
@@ -54,9 +55,40 @@ public class DailycardController {
     return list;
   }
 
+  // 좋아요 버튼 처리(업데이트)부
+
+  @GetMapping("/dailycard/likebtn/{id}")
+  @ResponseBody
+  public String likeBtn(Model model, @PathVariable("id") long dId) {
+    Optional<Dailycard> data = dailycardRepository.findById(dId);
+    Dailycard dailycard = data.get();
+    model.addAttribute("dailycard", dailycard);
+
+    dailycard.setLikeCount(dailycard.getLikeCount() + 1);
+    dailycardRepository.save(dailycard);
+    return "dailycard/likebtn";
+  }
+
+  /*
+  @GetMapping("/dailycard/likebtn/{id}")
+  @ResponseBody
+  public String likeBtn(Model model, @PathVariable("id") long dId) {
+    Optional<Dailycard> data = dailycardRepository.findById(dId);
+    Dailycard dailycard = data.get();
+    model.addAttribute("dailycard", dailycard);
+    return "dailycard/likebtn";
+  }
+
+  @PostMapping("/dailycard/liketbtn/{id}")
+  public String likeBtnUpdate(@ModelAttribute Dailycard dailycard, @PathVariable("id") long dId) {
+    dailycard.setLikeCount(dailycard.getLikeCount() + 1);
+    dailycardRepository.save(dailycard);
+    return "String";
+  }
+  */
+
   @PostMapping("/dailycard/update/{id}")
-  public String boardUpdate(
-      @ModelAttribute Dailycard dailycard, @PathVariable("id") long dId) {
+  public String boardUpdate(@ModelAttribute Dailycard dailycard, @PathVariable("id") long dId) {
     dailycardRepository.save(dailycard);
     return "redirect:/dailycard/" + dId;
   }
