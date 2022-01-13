@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @CrossOrigin
 @Controller
 public class DailycardController {
+  //커밋
   @Autowired
   DailycardRepository dailycardRepository;
 
