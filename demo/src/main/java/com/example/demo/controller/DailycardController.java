@@ -77,6 +77,8 @@ public class DailycardController {
   @GetMapping("/dailycard/update/{id}")
   @ResponseBody
   public String boardUpdate(Model model, @PathVariable("id") long dId) {
+
+    //user의 정보를 받아와야함
     Optional<Dailycard> data = dailycardRepository.findById(dId);
     Dailycard dailycard = data.get();
     model.addAttribute("dailycard", dailycard);
