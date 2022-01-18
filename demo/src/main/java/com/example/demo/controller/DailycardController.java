@@ -82,9 +82,9 @@ public class DailycardController {
     Optional<Dailycard> data = dailycardRepository.findById(dId);
     Dailycard dailycard = data.get();
     model.addAttribute("dailycard", dailycard);
-    
+  
     dailycardRepository.save(dailycard);
-    return "";
+    return "board/update";
   }
 
   @PostMapping("/dailycard/update/{id}")
