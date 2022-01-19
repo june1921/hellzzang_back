@@ -88,7 +88,9 @@ public class DailycardController {
   }
 
   @PostMapping("/dailycard/update/{id}")
+  @ResponseBody
   public String boardUpdate(@ModelAttribute Dailycard dailycard, @PathVariable("id") long dId) {
+    dailycard.setDId(dId);
     dailycardRepository.save(dailycard);
     return "redirect:/dailycard/" + dId;
   }
