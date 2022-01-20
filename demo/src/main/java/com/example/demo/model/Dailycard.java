@@ -15,4 +15,7 @@ public class Dailycard {
   long likeCount;
   String dailyContent;
   Long userNum;
+  String fileName;
+  String filePath;
+  Long fileSize;
 }

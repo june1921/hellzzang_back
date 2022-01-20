@@ -1,6 +1,9 @@
 package com.example.demo.controller;
 
+import java.security.KeyStore.Entry;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import com.example.demo.model.Dailycard;
@@ -15,15 +18,26 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 @CrossOrigin
 @Controller
 public class DailycardController {
-  //커밋
+  // 커밋
   @Autowired
   DailycardRepository dailycardRepository;
 
-  //포스트 작성(Create)부
+  // 포스트 작성(Create)부
+  public void uploadFile(MultipartHttpServletRequest mRequest) throws Exception {
+    Map <String, MultipartFile> files = mRequest.getFileMap();
+
+    Iterator < java.util.Map.Entry < String, MultipartFile >> itr = files.entrySet().iterator();
+
+    MultipartFile mFile;
+
+  }
+
   @GetMapping("/write")
   public String write() {
     return "write";
@@ -36,7 +50,7 @@ public class DailycardController {
     return dailycard;
   }
 
-  //포스트 전체 조회부(Read)
+  // 포스트 전체 조회부(Read)
   @GetMapping("/dailycard/list")
   @ResponseBody
   public List<Dailycard> cardList() {
@@ -44,7 +58,7 @@ public class DailycardController {
     return list;
   }
 
-  //나만의 포스트 전체 조회부(Read.my)
+  // 나만의 포스트 전체 조회부(Read.my)
   @GetMapping("/mydaily/list")
   @ResponseBody
   public List<Dailycard> mylist(Long userNum) {
@@ -52,7 +66,7 @@ public class DailycardController {
     return list;
   }
 
-  //포스트 1개 조회부
+  // 포스트 1개 조회부
   @GetMapping("/dailycard/{id}")
   @ResponseBody
   public Optional<Dailycard> boardView(@PathVariable("id") long dId) {
@@ -73,16 +87,16 @@ public class DailycardController {
     return "dailycard/likebtn";
   }
 
-  //포스트 수정(Update)부
+  // 포스트 수정(Update)부
   @GetMapping("/dailycard/update/{id}")
   @ResponseBody
   public String boardUpdate(Model model, @PathVariable("id") long dId) {
 
-    //user의 정보를 받아와야함
+    // user의 정보를 받아와야함
     Optional<Dailycard> data = dailycardRepository.findById(dId);
     Dailycard dailycard = data.get();
     model.addAttribute("dailycard", dailycard);
-  
+
     dailycardRepository.save(dailycard);
     return "board/update";
   }
@@ -95,7 +109,7 @@ public class DailycardController {
     return "redirect:/dailycard/" + dId;
   }
 
-  //포스트 삭제(Delete)부
+  // 포스트 삭제(Delete)부
   @GetMapping("/dailycard/delete/{id}")
   public String boardDelete(@PathVariable("id") long dId) {
     dailycardRepository.deleteById(dId);
