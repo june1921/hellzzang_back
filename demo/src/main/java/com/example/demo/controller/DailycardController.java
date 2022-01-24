@@ -6,9 +6,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import com.example.demo.model.Dailycard;
-import com.example.demo.repository.DailycardRepository;
+import javax.servlet.http.HttpServletRequest;
 
+import com.example.demo.model.Dailycard;
+import com.example.demo.model.File;
+import com.example.demo.repository.DailycardRepository;
+import com.example.demo.service.FileService;
+
+import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +23,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -27,18 +35,13 @@ public class DailycardController {
   // 커밋
   @Autowired
   DailycardRepository dailycardRepository;
+  FileService fileService;
 
   // 포스트 작성(Create)부
-  public void uploadFile(MultipartHttpServletRequest mRequest) throws Exception {
-    Map <String, MultipartFile> files = mRequest.getFileMap();
-
-    Iterator < java.util.Map.Entry < String, MultipartFile >> itr = files.entrySet().iterator();
-
-    MultipartFile mFile;
-
-  }
-
-  @GetMapping("/write")
+  
+  // 파일 업로드(Upload)부
+ 	
+	@GetMapping("/write")
   public String write() {
     return "write";
   }
